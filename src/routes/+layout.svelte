@@ -17,6 +17,8 @@
 	/>
 </svelte:head>
 
+<img class="leopard" src="/leopard.gif" alt="" width="190" height="360" />
+
 <div class="stage">
 	<main class="container">
 		<!-- "+" marks on the four corners of the border -->
@@ -42,7 +44,6 @@
 	}
 
 	:global(:root) {
-		--backdrop: #08090f;
 		--snow-size: 116px;
 		--snow-h: calc(var(--snow-size) * 64 / 58);
 		--snow-speed: 30s;
@@ -51,6 +52,8 @@
 		--snow-h-2: calc(var(--snow-size-2) * 64 / 58);
 		--snow-speed-2: 60s;
 		--snow-opacity-2: 0.55;
+
+		--leopard-width: 190px;
 
 		--paper: #000;
 		--ink: #fff;
@@ -98,12 +101,6 @@
 		}
 	}
 
-	@media (prefers-reduced-motion: reduce) {
-		:global(body)::before, :global(body)::after {
-			animation: none;
-		}
-	}
-
 	:global(body)::after {
 		content: '';
 		position: fixed;
@@ -124,6 +121,18 @@
 		to {
 			translate: calc(var(--snow-size-2) * -1) calc(var(--snow-h-2) * 3);
 		}
+	}
+
+	.leopard {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		z-index: -3;
+		display: box;
+		width: var(--leopard-width);
+		height: auto;
+		pointer-events: none;
+		user-select: none;
 	}
 
 	.stage {
