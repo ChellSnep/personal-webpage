@@ -19,6 +19,7 @@
 
 <div class="stage">
 	<main class="container">
+		<!-- "+" marks on the four corners of the border -->
 		<span class="plus tl" aria-hidden="true"></span>
 		<span class="plus tr" aria-hidden="true"></span>
 		<span class="plus bl" aria-hidden="true"></span>
@@ -41,7 +42,16 @@
 	}
 
 	:global(:root) {
-		--backdrop: #2d3270;
+		--backdrop: #08090f;
+		--snow-size: 116px;
+		--snow-h: calc(var(--snow-size) * 64 / 58);
+		--snow-speed: 30s;
+
+		--snow-size-2: 80px;
+		--snow-h-2: calc(var(--snow-size-2) * 64 / 58);
+		--snow-speed-2: 60s;
+		--snow-opacity-2: 0.55;
+
 		--paper: #000;
 		--ink: #fff;
 		--muted: #b9bdd6;
@@ -59,12 +69,61 @@
 
 	:global(body) {
 		margin: 0;
-		background: var(--backdrop);
+		background-color: var(--paper);
 		color: var(--ink);
 		font-family: var(--font);
 		font-size: 1.0625rem;
 		line-height: 1.6;
 		-webkit-font-smoothing: none;
+	}
+
+	:global(body)::before {
+		content: '';
+		position: fixed;
+		top: calc(var(--snow-h) * -2);
+		right: calc(var(--snow-size) * -1);
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+		background: url('/snow.png') repeat;
+		background-size: var(--snow-size) var(--snow-h);
+		pointer-events: none;
+		will-change: translate;
+		animation: snow-drift var(--snow-speed) linear infinite;
+	}
+
+	@keyframes -global-snow-drift {
+		to {
+			translate: calc(var(--snow-size) * -1) calc(var(--snow-h) * 2);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		:global(body)::before, :global(body)::after {
+			animation: none;
+		}
+	}
+
+	:global(body)::after {
+		content: '';
+		position: fixed;
+		top: calc(var(--snow-h-2) * -3);
+		right: calc(var(--snow-size-2) * -1);
+		bottom: 0;
+		left: 0;
+		z-index: -2;
+		background: url('/snow.png') repeat;
+		background-size: var(--snow-size-2) var(--snow-h-2);
+		opacity: var(--snow-opacity-2);
+		pointer-events: none;
+		will-change: translate;
+		animation: snow-drift-far var(--snow-speed-2) linear infinite;
+	}
+ 
+	@keyframes -global-snow-drift-far {
+		to {
+			translate: calc(var(--snow-size-2) * -1) calc(var(--snow-h-2) * 3);
+		}
 	}
 
 	.stage {

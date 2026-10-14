@@ -3,9 +3,8 @@
 	<meta name="description" content="Bwawawawa" />
 </svelte:head>
  
-<h1>Welcome to SvelteKit</h1>
+<h1>WIP</h1>
 <hr />
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
 <p>My Boss so Big</p>
  
 <style>
