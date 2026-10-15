@@ -2,6 +2,7 @@
 	import favicon from '#lib/assets/favicon.svg';
 	import type { LayoutProps } from './$types';
 	import Socials from '../lib/Socials.svelte';
+	import Name from '#lib/Name.svelte';
 
 	let { children }: LayoutProps = $props();
 </script>
@@ -17,19 +18,27 @@
 	/>
 </svelte:head>
 
-<img class="leopard" src="/leopard.gif" alt="" width="190" height="360" />
+<img class="leopard" src="/leopard.gif" alt="" width="190" height="306" />
 
-<div class="stage">
-	<main class="container">
-		<!-- "+" marks on the four corners of the border -->
+{#snippet corners()}
+	<!-- "+" marks on the four corners of the border -->
 		<span class="plus tl" aria-hidden="true"></span>
 		<span class="plus tr" aria-hidden="true"></span>
 		<span class="plus bl" aria-hidden="true"></span>
 		<span class="plus br" aria-hidden="true"></span>
+{/snippet}
 
-		{@render children()}
-		<Socials />
-	</main>
+<div class="stage">
+	<div class="stack">
+		<Name />
+
+		<main class="container">
+			{@render corners()}
+			{@render children()}
+		
+			<Socials />
+		</main>
+	</div>
 </div>
 
 <style>
@@ -71,6 +80,7 @@
 	}
 
 	:global(body) {
+		position: relative;
 		margin: 0;
 		background-color: var(--paper);
 		color: var(--ink);
@@ -124,11 +134,11 @@
 	}
 
 	.leopard {
-		position: fixed;
+		position: absolute;
 		left: 0;
 		bottom: 0;
 		z-index: -3;
-		display: box;
+		display: block;
 		width: var(--leopard-width);
 		height: auto;
 		pointer-events: none;
@@ -140,6 +150,13 @@
 		display: grid;
 		place-items: center;
 		padding: 2rem 1rem;
+	}
+
+	.stack {
+		width: 100%;
+		max-width: 40rem;
+		display: grid;
+		gap: 2.5rem;
 	}
 
 	.container {
