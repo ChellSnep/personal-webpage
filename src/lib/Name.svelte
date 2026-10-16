@@ -1,12 +1,14 @@
 <script lang="ts">
-    import { playTone } from "./sound";
+    import { playFile, playTone } from "./sound";
+
+	const neon = '#ff8a1f';
 
     const letters = [
-        { char: 'C', color: '#ff3df2', action: () => playTone(293.66) },
-        { char: 'H', color: '#ff3df2', action: () => playTone(293.66) },
-        { char: 'E', color: '#ff3df2', action: () => playTone(587.33) },
-        { char: 'L', color: '#ff3df2', action: () => playTone(440.0) },
-        { char: 'L', color: '#ff3df2', action: () => playTone(415.3) }
+        { char: 'C', color: neon, action: () => playTone(293.66) },
+        { char: 'H', color: neon, action: () => playTone(293.66) },
+        { char: 'E', color: neon, action: () => playTone(587.33) },
+        { char: 'L', color: neon, action: () => playTone(440.0) },
+        { char: 'L', color: neon, action: () => playFile('/sounds/voice_sans.mp3') }
     ]
 
     function pop(letter: HTMLElement) {
@@ -14,11 +16,11 @@
 
         letter.animate(
 			[
-				{ transform: 'scale(1)', filter: 'brightness(1)' },
-				{ transform: 'scale(1.22)', filter: 'brightness(1.4)', offset: 0.3 },
+				{ transform: 'scale(1)', filter: 'brightness(1)', easing: 'cubic-bezier(0.25, 1, 0.5, 1)' },
+				{ transform: 'scale(1.12)', filter: 'brightness(1.3)', offset: 0.4, easing: 'cubic-bezier(0.45, 0, 0.3, 1)' },
 				{ transform: 'scale(1)', filter: 'brightness(1)' }
 			],
-			{ duration: 380, easing: 'ease-out' }
+			{ duration: 650 }
 		);
     }
 </script>
@@ -46,6 +48,8 @@
 		gap: 0.08em;
 		font-size: clamp(4rem, 22vw, 9rem);
 		line-height: 1;
+
+		--glow-strength: 0.7;	
 	}
  
 	.letter {
@@ -61,21 +65,20 @@
 		position: relative;
 
 		color: #fff;
-		color: color-mix(in srgb, var(--glow) 50%, white);
+		color: color-mix(in srgb, var(--glow) 10%, white);
  
 		text-shadow:
-			0 0 0.03em #fff,
-			0 0 0.1em var(--glow),
-			0 0 0.22em var(--glow),
-			0 0 0.45em var(--glow),
-			0 0 0.8em var(--glow);
+			0 0 0.05em color-mix(in srgb, var(--glow) calc(var(--glow-strength) * 100%), transparent),
+			0 0 0.16em color-mix(in srgb, var(--glow) calc(var(--glow-strength) * 70%), transparent),
+			0 0 0.36em color-mix(in srgb, var(--glow) calc(var(--glow-strength) * 40%), transparent);
+
  
-		transition: scale 160ms cubic-bezier(0.3, 1.6, 0.5, 1);
+		transition: scale 320ms cubic-bezier(0.22, 1, 0.36, 1);
 	}
  
 	@media (hover: hover) {
 		.letter:hover {
-			scale: 1.1;
+			scale: 1.18;
 			z-index: 1;
 		}
 	}
@@ -85,11 +88,5 @@
 		outline-offset: 0.12em;
 		scale: 1.1;
 		z-index: 1;
-	}
- 
-	@media (prefers-reduced-motion: reduce) {
-		.letter {
-			transition: none;
-		}
 	}
 </style>
