@@ -1,4 +1,3 @@
-// Place holder for now to see if it even searchForWorkspaceRoot. Probably gonna change later so it does more than jst playing sound and/or adding some custom ones
 let audio: AudioContext | undefined;
 
 const volume = 0.05;
@@ -24,7 +23,7 @@ export function playTone(frequency: number, seconds = 0.4, wave: OscillatorType 
 	osc.stop(now + seconds + 0.05);
 }
 
-export function playFile(url: string, volume = 0.05) {
+export function playFile(url: string, volume = 0.8) {
     const sound = new Audio(url);
     sound.volume = volume;
     sound.play();

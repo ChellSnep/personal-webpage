@@ -1,15 +1,25 @@
 <script lang="ts">
     import { playFile, playTone } from "./sound";
 	import { slideAcross } from "./slide";
+    import { slide } from "svelte/transition";
 
 	const neon = '#ff8a1f';
+	let soundPlaying = false;
 
     const letters = [
         { char: 'C', color: neon, action: () => playTone(293.66) },
         { char: 'H', color: neon, action: () => playTone(293.66) },
         { char: 'E', color: neon, action: () => playTone(587.33) },
         { char: 'L', color: neon, action: () => playTone(440.0) },
-        { char: 'L', color: neon, action: () => { playFile('/sounds/voice_sans.mp3'); slideAcross(poster); } }
+        { char: 'L', color: neon, action: async () => { 
+			if (!soundPlaying) {
+				soundPlaying = true;
+				playFile('/sounds/stone-dragging.mp3'); 
+
+				await slideAcross(poster);
+				soundPlaying = false;
+			} }
+		}
     ]
 
     function pop(letter: HTMLElement) {
@@ -43,7 +53,7 @@
 	{/each}
 </header>
 
-<img bind:this={poster} class="poster" src="/godfather.jpg" alt="" aria-hidden="true" decoding="async" hidden />
+<img bind:this={poster} class="poster" src="/treat.jpg" alt="" aria-hidden="true" decoding="async" hidden />
  
 <style>
 	.title {
@@ -99,7 +109,8 @@
 		top: 50%;
 		left: 0;
 		z-index: 100;
-		height: 60vh;
+		height: 100vh;
+		width: 100%;
 		transform: translate(-100%, -50%);
 		pointer-events: none;
 		user-select: none;
