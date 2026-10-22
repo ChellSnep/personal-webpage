@@ -37,6 +37,10 @@
 	let poster: HTMLImageElement;
 </script>
 
+<svelte:head>
+	<link rel="preload" href="/sound/stone-dragging.mp3" as="audio" />
+</svelte:head>
+
 <header class="title" role="group" aria-label="CHELL">
 	{#each letters as { char, color, action }}
 		<button

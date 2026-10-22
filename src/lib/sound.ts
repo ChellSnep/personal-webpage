@@ -23,7 +23,13 @@ export function playTone(frequency: number, seconds = 0.4, wave: OscillatorType 
 	osc.stop(now + seconds + 0.05);
 }
 
+const audioCache: Record<string, HTMLAudioElement> = {};
+
 export function playFile(url: string, volume = 0.8) {
+	if (!audioCache[url]) {
+		audioCache[url] = new Audio(url);
+	}
+
     const sound = new Audio(url);
     sound.volume = volume;
     sound.play();
