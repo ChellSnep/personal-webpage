@@ -21,7 +21,6 @@
 <img class="leopard" src="/leopard.gif" alt="" width="190" height="306" />
 
 {#snippet corners()}
-	<!-- "+" marks on the four corners of the border -->
 		<span class="plus tl" aria-hidden="true"></span>
 		<span class="plus tr" aria-hidden="true"></span>
 		<span class="plus bl" aria-hidden="true"></span>

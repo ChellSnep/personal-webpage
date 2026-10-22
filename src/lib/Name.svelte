@@ -1,5 +1,6 @@
 <script lang="ts">
     import { playFile, playTone } from "./sound";
+	import { slideAcross } from "./slide";
 
 	const neon = '#ff8a1f';
 
@@ -8,11 +9,10 @@
         { char: 'H', color: neon, action: () => playTone(293.66) },
         { char: 'E', color: neon, action: () => playTone(587.33) },
         { char: 'L', color: neon, action: () => playTone(440.0) },
-        { char: 'L', color: neon, action: () => playFile('/sounds/voice_sans.mp3') }
+        { char: 'L', color: neon, action: () => { playFile('/sounds/voice_sans.mp3'); slideAcross(poster); } }
     ]
 
     function pop(letter: HTMLElement) {
-        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         letter.animate(
 			[
@@ -23,6 +23,8 @@
 			{ duration: 650 }
 		);
     }
+
+	let poster: HTMLImageElement;
 </script>
 
 <header class="title" role="group" aria-label="CHELL">
@@ -40,6 +42,8 @@
 		</button>
 	{/each}
 </header>
+
+<img bind:this={poster} class="poster" src="/godfather.jpg" alt="" aria-hidden="true" decoding="async" hidden />
  
 <style>
 	.title {
@@ -88,5 +92,16 @@
 		outline-offset: 0.12em;
 		scale: 1.1;
 		z-index: 1;
+	}
+
+	.poster {
+		position: fixed;
+		top: 50%;
+		left: 0;
+		z-index: 100;
+		height: 60vh;
+		transform: translate(-100%, -50%);
+		pointer-events: none;
+		user-select: none;
 	}
 </style>
