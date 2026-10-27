@@ -5,8 +5,14 @@
 </script>
 
 <svelte:head>
-	<title>Cool Awesome PAge</title>
-	<meta name="description" content="Bwawawawa" />
+	<link
+		rel="preload"
+		href="/fonts/determinationmonoweb-webfont.woff2"
+		as="font"
+		type="font/woff2"
+		crossorigin="anonymous"
+	/>
+	<link rel="preload" href="/soul.png" as="image" />
 </svelte:head>
 
 <Skeleton />
@@ -30,16 +36,31 @@
 		<main class="container">
 			{@render corners()}
 			
-            <h1>WIP</h1>
+            <h1>* WIP</h1>
             <hr />
             <p>My Boss so Big</p>
+			<hr />
 		
-			<Socials />
+			<nav class="links">
+				<a href="/about">About me</a>
+				<a href="/projects">Projects</a>
+				<a href="/test">WIP</a>
+			</nav>
 		</main>
 	</div>
 </div>
 
 <style>
+	@font-face {
+		font-family: 'Determination Mono';
+		src:
+			url('/fonts/determinationmonoweb-webfont.woff2') format('woff2'),
+			url('/fonts/determinationmonoweb-webfont.woff') format('woff');
+		font-weight: normal;
+		font-style: normal;
+		font-display: swap;
+	}
+
 	.snow {
 		position: fixed;
 		bottom: 0;
@@ -93,6 +114,8 @@
 	}
 
 	.stage {
+		--font: 'Determination Mono', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+		font-family: var(--font);
 		min-height: 100dvh;
 		display: grid;
 		place-items: center;
@@ -185,8 +208,62 @@
 	p {
 		margin: 0 0 1rem;
 	}
- 
+
+	.links {
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: 1fr;
+	}
+
+	.links a {
+		justify-self: center;
+	}
+
+	.links a:first-child {
+		justify-self: start;
+	}
+
+	.links a:last-child {
+		justify-self: end;
+	}
+
+	@media (max-width: 32rem) {
+		.links {
+			grid-auto-flow: row;
+			gap: 1rem;
+		}
+	}
+
+	.links a,
+	.links a:first-child,
+	.links a:last-child {
+		justify-self: start;
+	}
+
 	a {
+		color: var(--ink);
+		text-decoration: none;
+	}
+
+	a::before {
+		content: '*';
+		display: inline-block;
+		width: 1rem;
+		line-height: 1;
+		margin-right: 0.75ch;
+		text-align: center;
+	}
+
+	a:hover, 
+	a:focus-visible {
 		color: var(--accent);
+	}
+
+	a:hover::before,
+	a:focus-visible::before {
+		color: transparent;
+		background: url('/soul.png') center / contain no-repeat;
+		width: 1rem;
+		height: 1rem;
 	}
 </style>

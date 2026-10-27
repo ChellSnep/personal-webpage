@@ -7,13 +7,8 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<link
-		rel="preload"
-		href="/fonts/determinationmonoweb-webfont.woff2"
-		as="font"
-		type="font/woff2"
-		crossorigin="anonymous"
-	/>
+	<title>Cool Awesome PAge</title>
+	<meta name="description" content="Bwawawawa" />
 </svelte:head>
 
 {@render children()}
@@ -35,7 +30,7 @@
 		--muted: #b9bdd6;
 		--rule: #fff;
 		--accent: #ffc93c;
-		--font: 'Determination Mono', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+		--font: ui-monospace, 'Cascadia Mono', Menlo, monospace;
 	}
 
 	:global(*),
@@ -50,7 +45,7 @@
 		background-color: var(--paper);
 		color: var(--ink);
 		font-family: var(--font);
-		font-size: 1.0625rem;
+		font-size: 1.375rem;
 		line-height: 1.6;
 		-webkit-font-smoothing: none;
 	}
