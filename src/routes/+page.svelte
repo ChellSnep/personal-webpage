@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Socials from '../lib/Socials.svelte';
 	import Name from '#lib/Name.svelte';
 	import Skeleton from '#lib/Skeleton.svelte';
 </script>
